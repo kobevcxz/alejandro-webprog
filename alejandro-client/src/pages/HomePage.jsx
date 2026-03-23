@@ -1,6 +1,6 @@
 import Button from "../components/Button";
 import anime1 from "../assets/image/top.jpg";
-import anime2 from "../assets/image/OnePiece.jpg";
+import anime2 from "../assets/image/topanime.jpeg";
 import anime3 from "../assets/image/OnePiece.jpg";
 import anime4 from "../assets/image/OnePiece.jpg";
 
@@ -107,7 +107,7 @@ const HomePage = () => {
               <img
                 src={img}
                 alt="anime"
-                className="rounded mb-3 w-full object-cover"
+                className="rounded mb-3 w-full h-100 object-cover"
               />
 
               <h3 className="mt-5 text-lg font-semibold text-zinc-900">
