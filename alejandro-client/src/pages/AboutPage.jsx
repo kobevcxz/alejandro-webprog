@@ -1,6 +1,6 @@
 import Button from "../components/Button";
 import anime1 from "../assets/image/OnePiece.jpg";
-import anime2 from "../assets/image/OnePiece.jpg";
+import anime2 from "../assets/image/alot.png";
 import anime3 from "../assets/image/OnePiece.jpg";
 import anime4 from "../assets/image/OnePiece.jpg";
 
@@ -13,7 +13,7 @@ const AboutPage = () => {
 
           <div>
             <img
-              src={anime1}
+              src={anime2}
               alt="anime"
               className="rounded-3xl border-2 border-zinc-300 w-full object-cover"
             />
@@ -137,7 +137,7 @@ const AboutPage = () => {
             </p>
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              {[anime2, anime3, anime4, anime1].map((img, i) => (
+              {[anime1, anime3, anime4, anime1].map((img, i) => (
                 <img
                   key={i}
                   src={img}
