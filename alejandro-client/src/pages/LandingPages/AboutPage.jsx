@@ -1,9 +1,8 @@
-import Button from "../components/Button";
-import anime1 from "../assets/image/OnePiece.jpg";
-import anime2 from "../assets/image/alot.png";
-import anime3 from "../assets/image/OnePiece.jpg";
-import anime4 from "../assets/image/OnePiece.jpg";
-
+import Button from "../../components/Button";
+import anime1 from "../../assets/image/OnePiece.jpg";
+import anime2 from "../../assets/image/alot.png";
+import anime3 from "../../assets/image/OnePiece.jpg";
+import anime4 from "../../assets/image/OnePiece.jpg";
 const AboutPage = () => {
   return (
     <div className="flex w-full flex-col gap-6">

@@ -1,8 +1,8 @@
-import Button from "../components/Button";
-import anime1 from "../assets/image/top.jpg";
-import anime2 from "../assets/image/topanime.jpeg";
-import anime3 from "../assets/image/OnePiece.jpg";
-import anime4 from "../assets/image/OnePiece.jpg";
+import Button from "../../components/Button";
+import anime1 from "../../assets/image/top.jpg";
+import anime2 from "../../assets/image/topanime.jpeg";
+import anime3 from "../../assets/image/OnePiece.jpg";
+import anime4 from "../../assets/image/OnePiece.jpg";
 
 const HomePage = () => {
   return (
