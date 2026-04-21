@@ -23,7 +23,7 @@ const SignUpPage = () => {
             <input
               id="first-name"
               type="text"
-              placeholder="Placeholder"
+              placeholder="First Name"
               autoComplete="given-name"
               className={inputClasses}
             />
@@ -36,7 +36,7 @@ const SignUpPage = () => {
             <input
               id="last-name"
               type="text"
-              placeholder="Placeholder"
+              placeholder="Last Name"
               autoComplete="family-name"
               className={inputClasses}
             />
@@ -50,7 +50,7 @@ const SignUpPage = () => {
           <input
             id="signup-email"
             type="email"
-            placeholder="Placeholder"
+            placeholder="email@example.com"
             autoComplete="email"
             className={inputClasses}
           />
@@ -63,7 +63,7 @@ const SignUpPage = () => {
           <input
             id="signup-password"
             type="password"
-            placeholder="Placeholder"
+            placeholder="Password"
             autoComplete="new-password"
             className={inputClasses}
           />

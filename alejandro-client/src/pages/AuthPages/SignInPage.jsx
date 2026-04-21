@@ -22,7 +22,7 @@ const SignInPage = () => {
           <input
             id="signin-email"
             type="email"
-            placeholder="Placeholder"
+            placeholder="email@example.com"
             autoComplete="email"
             className={inputClasses}
           />
@@ -35,7 +35,7 @@ const SignInPage = () => {
           <input
             id="signin-password"
             type="password"
-            placeholder="Placeholder"
+            placeholder="Password"
             autoComplete="current-password"
             className={inputClasses}
           />
