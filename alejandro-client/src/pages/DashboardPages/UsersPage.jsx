@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import {
   Alert,
   Box,
@@ -79,6 +80,11 @@ const loadUsers = () => {
 const seed = loadUsers();
 
 const UsersPage = () => {
+  const userType = localStorage.getItem('type');
+
+if (userType === 'editor') {
+  return <Navigate to="/dashboard" replace />;
+}
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [users, setUsers] = useState(seed.users);

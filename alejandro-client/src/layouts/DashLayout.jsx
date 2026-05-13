@@ -26,12 +26,14 @@ import Button from "@mui/material/Button";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import ArticleIcon from "@mui/icons-material/Article";
 
+
 const drawerWidth = 240;
 
 const dashboardNavItems = [
   { label: "Dashboard", title: "Dashboard", to: "/dashboard", icon: DashboardIcon },
   { label: "Reports", title: "Reports", to: "/dashboard/reports", icon: AssessmentIcon },
-  { label: "Users", title: "Users", to: "/dashboard/users", icon: PeopleIcon }
+  { label: "Users", title: "Users", to: "/dashboard/users", icon: PeopleIcon },
+  { label: "Articles", title: "Articles", to: "/dashboard/articles", icon: ArticleIcon }
 ];
 
 const openedMixin = (theme) => ({
