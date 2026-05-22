@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Navigate } from 'react-router-dom';
 import {
   Alert,
@@ -24,7 +25,6 @@ import { useTheme } from '@mui/material/styles';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { DataGrid } from '@mui/x-data-grid';
-import usersSeed from '../../data/users.json?raw';
 
 const roles = ['admin', 'editor', 'viewer'];
 const genders = ['male', 'female', 'other'];
@@ -46,38 +46,6 @@ const blankForm = {
 const labelize = (value) =>
 value ? `${value.charAt(0).toUpperCase()}${value.slice(1)}` : '';
 
-const loadUsers = () => {
-  try {
-    return {
-      users: JSON.parse(usersSeed).map((user, index) => ({
-        id: Number(user.id) || index + 1,
-        firstName: String(user.firstName ?? '').trim(),
-        lastName: String(user.lastName ?? '').trim(),
-        age: String(user.age ?? '').trim(),
-        gender: genders.includes(String(user.gender ?? '').trim().toLowerCase())
-          ? String(user.gender ?? '').trim().toLowerCase()
-          : '',
-        contactNumber: String(user.contactNumber ?? '').trim(),
-        email: String(user.email ?? '').trim().toLowerCase(),
-        role: roles.includes(String(user.role ?? '').trim().toLowerCase())
-          ? String(user.role ?? '').trim().toLowerCase()
-          : 'editor',
-        username: String(user.username ?? '').trim().toLowerCase(),
-        password: String(user.password ?? ''),
-        address: String(user.address ?? '').trim(),
-        isActive: typeof user.isActive === 'boolean' ? user.isActive : true,
-      })),
-      error: '',
-    };
-  } catch {
-    return {
-      users: [],
-      error: 'Unable to read users from src/data/users.json.',
-    };
-  }
-};
-
-const seed = loadUsers();
 
 const UsersPage = () => {
   const userType = localStorage.getItem('type');
@@ -87,7 +55,7 @@ if (userType === 'editor') {
 }
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [users, setUsers] = useState(seed.users);
+  const [users, setUsers] = useState([]);
   const [modal, setModal] = useState({ open: false, id: null });
   const [form, setForm] = useState(blankForm);
   const [errors, setErrors] = useState({});
@@ -99,6 +67,39 @@ if (userType === 'editor') {
     gender: 'all',
     status: 'all',
   });
+  useEffect(() => {
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(
+        'http://127.0.0.1:8000/api/users'
+      );
+
+      setUsers(
+  response.data.users.map((user) => ({
+    id: user._id,
+    firstName: user.firstName || '',
+    lastName: user.lastName || '',
+    age: user.age || '',
+    gender: user.gender || '',
+    contactNumber: user.contactNumber || '',
+    email: user.email || '',
+    role: (user.type || 'viewer').toLowerCase(),
+    username: user.username || '',
+    password: '',
+    address: user.address || '',
+    isActive:
+      typeof user.isActive === 'boolean'
+        ? user.isActive
+        : true,
+  }))
+);
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+    }
+  };
+
+  fetchUsers();
+}, []);
 
   const resetForm = () => {
     setForm({ ...blankForm });
@@ -390,11 +391,6 @@ if (userType === 'editor') {
         </Stack>
       </Paper>
 
-      {seed.error ? (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {seed.error}
-        </Alert>
-      ) : null}
 
       {/* Table Container */}
       <Paper sx={{ p: { xs: 1.5, sm: 2 }, minWidth: 0, overflow: 'hidden' }}>
