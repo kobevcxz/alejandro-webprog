@@ -18,20 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const corsOptions = {
     origin: "*",
     credentials: true,
-    allowedHeaders: [
-        "Content-Type",
-        "Authorization",
-        "X-Requested-With"
-    ],
-    methods: [
-        "GET",
-        "HEAD",
-        "PUT",
-        "PATCH",
-        "POST",
-        "DELETE",
-        "OPTIONS"
-    ],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
     preflightContinue: false,
     optionsSuccessStatus: 204,
 };
