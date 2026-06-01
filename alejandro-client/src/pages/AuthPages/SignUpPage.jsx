@@ -59,7 +59,7 @@ const SignUpPage = () => {
       </h1>
 
       <p className="mt-3 text-sm leading-6 text-zinc-600">
-        Create your account with the same monochrome layout pattern and shared button treatment.
+        Sign up to create your account and start exploring.
       </p>
 
       {error && (

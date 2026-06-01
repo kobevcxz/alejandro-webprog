@@ -43,7 +43,7 @@ const SignInPage = () => {
       <h1 className="text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl">Log In</h1>
 
       <p className="mt-3 text-sm leading-6 text-zinc-600">
-        Access your account using the same monochrome wireframe language used across the site.
+        Welcome back! Log in to access your account.
       </p>
 
       {error && (
