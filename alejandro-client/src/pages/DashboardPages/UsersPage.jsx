@@ -74,7 +74,8 @@ if (userType === 'editor') {
       const response = await axios.get(
   `${constants.HOST}/users`
 );
-
+console.log(response.data);
+console.log(response.data.users);
       setUsers(
   response.data.users.map((user) => ({
     id: user._id,
