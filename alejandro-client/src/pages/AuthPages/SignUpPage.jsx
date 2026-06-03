@@ -18,7 +18,7 @@ const SignUpPage = () => {
     gender: 'male',
     contactNumber: '',
     email: '',
-    type: 'viewer',
+    type: 'Viewer',
     username: '',
     password: '',
     address: '',
