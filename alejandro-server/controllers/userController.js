@@ -13,20 +13,36 @@ const getUsers = async (req, res) => {
 
 const createUser = async (req, res) => {
     try {
-        // Ensure the password is included in the request body
         if (!req.body.password) {
-            return res.status(400).json({ message: 'Password is required' });
+            return res.status(400).json({
+                success: false,
+                message: 'Password is required'
+            });
         }
 
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        const hashedPassword = await bcrypt.hash(
+            req.body.password,
+            10
+        );
 
-        // Create the user with the hashed password
-        const user = await User.create({ ...req.body, password: hashedPassword });
+        const user = await User.create({
+            ...req.body,
+            password: hashedPassword
+        });
 
-        res.status(201).json(user);
+        return res.status(201).json({
+            success: true,
+            message: 'Signup successful',
+            user
+        });
+
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error(error);
+
+        return res.status(400).json({
+            success: false,
+            message: error.message
+        });
     }
 };
 
