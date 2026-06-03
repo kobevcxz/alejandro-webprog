@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import constants from '../../constants';
 import { Navigate } from 'react-router-dom';
 import {
   Alert,
@@ -71,8 +72,8 @@ if (userType === 'editor') {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
-        'http://127.0.0.1:8000/api/users'
-      );
+  `${constants.HOST}/users`
+);
 
       setUsers(
   response.data.users.map((user) => ({
