@@ -124,4 +124,28 @@ const articles = [
   }
 ];
 
-export default articles;
+let dashboardArticles = [];
+
+if (typeof window !== 'undefined') {
+  dashboardArticles =
+    JSON.parse(
+      localStorage.getItem('dashboardArticles')
+    ) || [];
+}
+
+const formattedDashboardArticles =
+  dashboardArticles
+    .filter((article) => article.id > 10)
+    .map((article) => ({
+      name: article.slug,
+      title: article.title,
+      image: narutoImg,
+      content: [article.preview],
+    }));
+
+const allArticles = [
+  ...articles,
+  ...formattedDashboardArticles,
+];
+
+export default allArticles;

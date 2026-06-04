@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Alert,
   Box,
@@ -114,7 +114,14 @@ const DashArticleListPage = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [articles, setArticles] = useState(initialArticles);
+  const [articles, setArticles] = useState(() => {
+  const savedArticles =
+    localStorage.getItem('dashboardArticles');
+
+  return savedArticles
+    ? JSON.parse(savedArticles)
+    : initialArticles;
+});
 
   const [modal, setModal] = useState({
     open: false,
@@ -128,6 +135,12 @@ const DashArticleListPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const [statusFilter, setStatusFilter] = useState('all');
+  useEffect(() => {
+  localStorage.setItem(
+    'dashboardArticles',
+    JSON.stringify(articles)
+  );
+}, [articles]);
 
   const resetForm = () => {
     setForm(blankForm);
