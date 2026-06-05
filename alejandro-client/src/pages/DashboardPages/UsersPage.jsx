@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import constants from '../../constants';
+import {
+  createUser,
+  updateUser,
+} from '../../services/UserService';
 import { Navigate } from 'react-router-dom';
 import {
   Alert,
@@ -183,43 +187,71 @@ console.log(response.data.users);
     return nextErrors;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const nextErrors = validate();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    if (Object.keys(nextErrors).length) {
-      setErrors(nextErrors);
-      return;
-    }
+  const nextErrors = validate();
 
-    const nextUser = {
-      firstName: form.firstName.trim(),
-      lastName: form.lastName.trim(),
-      age: form.age.trim(),
-      gender: form.gender.trim().toLowerCase(),
-      contactNumber: form.contactNumber.trim(),
-      email: form.email.trim().toLowerCase(),
-      role: form.role.trim().toLowerCase(),
-      username: form.username.trim().toLowerCase(),
-      password: form.password, 
-      address: form.address.trim(),
-      isActive: form.isActive,
-    };
+  if (Object.keys(nextErrors).length) {
+    setErrors(nextErrors);
+    return;
+  }
 
-    setUsers((prev) =>
-      modal.id
-        ? prev.map((user) => (user.id === modal.id ? { ...user, ...nextUser, password: nextUser.password || user.password } : user))
-        : [
-            ...prev,
-            {
-              id: prev.reduce((max, user) => Math.max(max, Number(user.id) || 0), 0) + 1,
-              ...nextUser,
-            },
-          ]
+  const nextUser = {
+    firstName: form.firstName.trim(),
+    lastName: form.lastName.trim(),
+    age: form.age.trim(),
+    gender: form.gender.trim().toLowerCase(),
+    contactNumber: form.contactNumber.trim(),
+    email: form.email.trim().toLowerCase(),
+    type: labelize(form.role),
+    username: form.username.trim().toLowerCase(),
+    address: form.address.trim(),
+    isActive: form.isActive,
+  };
+
+  if (form.password) {
+    nextUser.password = form.password;
+  }
+
+  try {
+    if (modal.id) {
+  console.log(modal.id);
+  console.log(nextUser);
+
+  await updateUser(modal.id, nextUser);
+}
+
+    const response = await axios.get(
+      `${constants.HOST}/users`
+    );
+
+    setUsers(
+      response.data.users.map((user) => ({
+        id: user._id,
+        firstName: user.firstName || '',
+        lastName: user.lastName || '',
+        age: user.age || '',
+        gender: user.gender || '',
+        contactNumber: user.contactNumber || '',
+        email: user.email || '',
+        role: (user.type || 'viewer').toLowerCase(),
+        username: user.username || '',
+        password: '',
+        address: user.address || '',
+        isActive:
+          typeof user.isActive === 'boolean'
+            ? user.isActive
+            : true,
+      }))
     );
 
     closeModal();
-  };
+  } catch (error) {
+    console.error('Failed to save user:', error);
+  }
+};
+
 
   const toggleStatus = (id) => {
     setUsers((prev) =>
